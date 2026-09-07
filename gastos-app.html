@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control de Gastos</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gastos">
+<meta name="theme-color" content="#0f1115">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAALgUlEQVR4nO2da2xT1x3Az/X1I3au7cRxQpwYBwjkURgQRgABpaPbNG1dycqENJWxqdqk0WkrH7YPlTapqjpNmgQfUL90gz2qTeu6Sm1FN6Y90KCUZ1h5qIRBCOSdkIcTv+LY8fXdB29WluSiG/ucex7+/z4g4Rzf87//+8v/3HPuI1LHUQ0BwFJYaAcAsAvIAegCcgC6gByALiAHoAvIAegCcgC6gByALiAHoAvIAegCcgC6gByALiAHoAvIAegCcgC6gByALiAHoAvIAegCcgC6WGkHQIfO4+uW+5X2I90kImEZqRRuMC5ABSMIr4uwchASQg8hRRFNDpOdWIxIlggiB3UnFiOAJXzLwaATi+HXEl7l4EKL+fCoCH9ycKfFfPhShCc5uNZiPrwowoccwmgxH/YV4WD5XEgzEA/7xXTlYD99WGC2hLBbOUrEDMTwnrJYOZhNFmlYKyHMVY6SNQOxt+9sycFadsyHqQywMqwwlRQWYGGIYaJygBmLYSEn9OVgIQtsQj0zlOWgvv+MQzc/NOUAM4xAMUvU5AAzjEMrV3TkADOWC5WMUZADzCgM8/NmthxgRjGYnD1T5QAzisfMHNJf5wCYxTw5oGzgwrRMmiQHmIEXc/JpxoU3xs1w+ps3HPzTgg/VVOzjN7ZQicc4pC/OwTkHkpBEOwRGIS4H42WDa0jnlqwcfJghcVw5iGYYhhWEYFjRgaAcfJQNhCSJ798QcnkmlRdezECI72ElB6Fs8/1Lgwnu5SAEETl4KhtIEDdI5BwqBxLEDgLgXyFlvGxYy7yumvVO31qHJ2hXAnKZ167UllWuXtxSTcfnEmPp+KO5xFg6NjI73Ts73Ts79TCTDJsftkHwrpmWxntIJYsnuKOy8XOe0O4lPVgS2a7IdqWscs2Cz9VUdGbi7sx418xY18x4VzLcrWVV3BEzAebKwVrZkB2emo0HazYetCsrCHWRnUvGR67HhjtjQ52J0ZvZzCyhjgyCsXgIWzkki1yz6VD99pdkh5toRxab0xPa6QntRAg9uvFm/7mfEO3OTHCekLJTNhye+tYDb4f2/Ii0GQyC8SgIWDnKazc2dfzSWlZBOxDuEU0OV/UTLft/a7G5aAciAtiGFRbGFKuzsqnjBJiB61gItQjWsPdVW3kN7SjEQRw5lECbb90XaUchFHjOOVgYUwLtLy6r/ezUw3D36fjIdYvNufZLry/4qZqK3fzVHlt5tc3lt7mq7e5aZ1Wzq7rF6VsryXZ8UZOi8/i64hc8BDkhtbn83oY9BhurqVj/udcm7ryPkIYQclW3Lt0sHVfT8dmph/M/lCxyWWWjO7jNG9rtDm6X7UpxgTONIHJ4G56ULLKRltlM8u6730iMfVJYR1pWTU7eS07eG7v5O8kil9e2Vax5uqr5WbtSW9gGWQaDHCyMKUrdpw22HOl8o2AzFqBl1fjwtfjwtcELRz3B7VUtHWoqhmXLWCh+ZBGkcjh9aw22nLjzPv7utWx04FJ04BL+LVNFkNmK3V1nqJ2WTcdGCMciDoLIIdvLDbWTLBZbGeFYxKFYOVg44UAISbLNYEuldjPJQNiiyKMjSOXIZtIGW65oe4FoJCIhiByZ2SmDLStW763f8RLRYIRBEDnS0WHjjeu2f795/5vu+nZy8YiBIFPZmYmu3L1YBvGs3OlZuXMuMRYbuqqm4uQC4xpBKkdsqLOAb9nKa3xNX67+1NcW/0iSbZWNn3d46kv5wYWibjBmZKqCELLIjrbvXCVxJ4eaTiQn786M3Y6PXI+PfJyKDmHvgjQFr5MKMqxk1dRE17s1m76OfcuyvVwJbFECW2o2HUIIpSL9kb6Ppnr+Fhu8LOoTCXkEGVYQQiP/OmnCYwEOb6hm4/PNz/1m87cvrXzyZYc3RLpHiogjRzo2NHxl4W0Z5LA6K2u3fGvjN/++5gvHRFVEHDkQQiPXTkw/OGNql5KlqmXfhkOnA+2HEefv+ViMYPuj9Zw+Euk9a3KvFtkR3PmDpo4TRi/xcIJgcqCsmuo+dXjk2s+RljW5a2/DnqaOkxarOBf2RJMDIaRp6uCFo11/PJAYvWVy10rd1oanXzW5U3IIKEeOxOitrre/2v3B4djQVTP79bfur1j9GTN7JIcg6xx6TD84M/3gjNPXWNXyFV/TMw7vShM6De5+efrhudzdy1wjuBw5kuGewYvHBi8ec/oaPQ17PMFtSt1Wcg/TOn2N3lV7Ir3nCG3fNEpCjjzJcE8y3PPo+q8RQg5vqLxmvav6CSXQ5g5ux9uRr+kZkINjUpH+VKQ/3P0XV3Xr+udP4d14xaqn8G6QCqUrx+NR0/Gut55zVKxSajd5QruUQNuyvm51+hyeYCo6SCg8cwA5dNC03BviIr1nhy4fd1atCz31Y8/KZdwyUuZby7scwk5l8ZKc7L773gvhe382/hW7m/tn4EAOw2jZvn++YvyZNqvDQzQcEyhKDtJ/KYg1MrORSJ/ROQgj6+jFHCOoHMsjOXnfYMusOkc0EhMAOZaH8fuJsnMJopGYgCByrNv3C3/rfslCfPJlK6822FKAh3IFmcq6/E0Vq/cGd/1w/PY7E7ffITeH9IZ2G2y54K0vPCKIHDls5dV1275bt+3F6OCVqXunw/f/ivcl9lUt+5z+ZiMtM7ORZLgHY9dUKFaO9iPd7Dyg8D8kT3CHJ7gjtPeVxOitSN+H0f6LibFPNNXo87RL4m/dv+qzrxlsHO07z8JVWXh5iy6SJCuBNiXQVr/jiKbOJcZvz4x1JcPds+GeVHQoHR99vC6SbLc6vGWVq5RAm6/5WZe/xXjXE3feKzp8+ogsx3wk2abUbv7/9y9omVRUTcW17BJzTtnh3vq924X1NTPx70jf+cK+yxSlIsdSSFaH1+rwYt/u4PmfsTCmFA+GqWyprZM+nrFbv4/0f0Q7CoRwHBdB1jkYITpwsf+c0ZNW9gE5sDH98Gz3qcNaNkM7EGzgkaPERxZNU4evvH7/g8PZTJJ2LP8FyxEp5RNSPEQHLw98+NOZ8Tu0A8GPIHJ0/eGAu77dXd+u1G91VTWZ8Niqps5NPzgzeuPN+PA10n3RAudfh2RkqdTq8LpWbHD5W5z+Jpe/pczXaJEduDY+NzMZG7wU6T0/9eAfaiqKa7N4wTXKC1I55pNJRaL9F6L9F3L/lSTZ7qmzu+sc7jq7O2B3B2zlK6wOt8Wu5P6VbcpSL9XX5hLjc8lwZiacig6mogOz4Z7EWFc6xt+bfQpGQDkWoGlqKjKQigzo3d+n1G1tPfDWgg/VVPzGyV2kY2McnGMzt3MWEVYz82A8CrDOgZAmlBwYwSwHn8VDHDnw5h8qB1QOXfDLwV3x0ESpHNgzD5UDiTSs4IWIHJwVDyHcIJFzqBxIEDsIQEoOnooH/yekhLJNsHLw4gfvJ6Tk8gzDigiVgxBk5eCkeHAsB9EM47xkrwcjl/LFg/TvHgwrgC5myMHJ4MIZJmTVpMoBfuDFnHyaN6yAH7gwLZNwzgHoYqocUDyKx8wcml05wI9iMDl7FIYV8KMwzM8bnXMO8GO5UMkYtRNS8MM4tHJFc7YCfhiBYpYoT2XBj8dDNz/01znADz2oZ4a+HIiBLDAICzkx45K9ceDiPmJDixxMVI487OSFFkxlgC05EGPZMRnW9p2tYWU+JTXEsKZFDuYqRx4280UCZveU3cqRR+ASwqwWOditHHkYz2DBsL9fHFSOPMKUEPa1yMGTHDm4VoQXLXLwJ0cO7hThS4scvMqRgwtFeNQiB99y5GHQEn6dyCOIHHmoWyKAE3lEkyOPyZaI5EQeYeWYDyFRhBRiPiUhx2IK0EV4FRZTonIARuBg+RygBcgB6AJyALqAHIAuIAegC8gB6AJyALqAHIAuIAegC8gB6AJyALqAHIAuIAegC8gB6AJyALqAHIAuIAegC8gB6PIfVhnDDayqaZ8AAAAASUVORK5CYII=">
+<style>
+  :root{
+    --bg:#0f1115; --card:#1a1d24; --card2:#20242c; --accent:#4f8cff;
+    --accent2:#34c77b; --accent3:#ffb020; --text:#eef1f6; --muted:#9aa3b2; --danger:#ff5d5d;
+    --border:#2a2f3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg); color:var(--text); padding-bottom:90px;
+  }
+  header{
+    padding:18px 16px 10px; position:sticky; top:0; background:var(--bg); z-index:10;
+    border-bottom:1px solid var(--border);
+  }
+  header h1{font-size:19px; margin:0 0 2px;}
+  header p{margin:0; font-size:12px; color:var(--muted);}
+  .tabs{ display:flex; gap:6px; padding:10px 16px 0; }
+  .tab{
+    flex:1; text-align:center; padding:9px 4px; border-radius:10px; font-size:13px;
+    background:var(--card); color:var(--muted); cursor:pointer; user-select:none;
+    border:1px solid var(--border);
+  }
+  .tab.active{ background:var(--accent); color:white; border-color:var(--accent); font-weight:600;}
+  main{padding:14px 16px; max-width:520px; margin:0 auto;}
+  .view{display:none;}
+  .view.active{display:block;}
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:14px; margin-bottom:12px;
+  }
+  .card h3{margin:0 0 10px; font-size:14px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.03em;}
+  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .stat{background:var(--card2); border-radius:10px; padding:10px; text-align:center;}
+  .stat .v{font-size:17px; font-weight:700;}
+  .stat .l{font-size:10.5px; color:var(--muted); margin-top:2px;}
+  label{display:block; font-size:12px; color:var(--muted); margin:10px 0 4px;}
+  input[type=text], input[type=number], input[type=date], input[type=month], select{
+    width:100%; padding:10px; border-radius:9px; border:1px solid var(--border);
+    background:var(--card2); color:var(--text); font-size:14px;
+  }
+  .row{display:flex; align-items:center; gap:8px; margin-top:10px;}
+  .row input[type=checkbox]{width:18px; height:18px;}
+  button{ border:none; border-radius:10px; padding:11px 14px; font-size:14px; font-weight:600; cursor:pointer; }
+  .btn-primary{background:var(--accent); color:white; width:100%; margin-top:14px;}
+  .btn-secondary{background:var(--card2); color:var(--text); border:1px solid var(--border); width:100%; margin-top:8px;}
+  .entry{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; border-bottom:1px solid var(--border); font-size:13px;
+  }
+  .entry:last-child{border-bottom:none;}
+  .entry .meta{color:var(--muted); font-size:11px;}
+  .del{background:transparent; color:var(--danger); font-size:12px; padding:4px 8px;}
+  .empty{color:var(--muted); font-size:13px; text-align:center; padding:14px 0;}
+  .service-block{margin-bottom:16px;}
+  .service-block .head{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;}
+  .service-block .head h4{margin:0; font-size:14px;}
+  .add-toggle{color:var(--accent); font-size:12px; cursor:pointer;}
+  .hidden-form{display:none; background:var(--card2); border-radius:10px; padding:10px; margin-top:8px;}
+  .hidden-form.open{display:block;}
+  .month-total{font-size:12px; color:var(--accent2); font-weight:600;}
+  #toast{
+    position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+    background:#2a2f3a; color:white; padding:8px 16px; border-radius:20px; font-size:12px;
+    opacity:0; transition:opacity .3s; pointer-events:none; z-index:99;
+  }
+  #toast.show{opacity:1;}
+  .weekdays{display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px;}
+  .weekdays div{text-align:center; font-size:10px; color:var(--muted);}
+  .calendar{display:grid; grid-template-columns:repeat(7,1fr); gap:4px;}
+  .day{
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+    border-radius:8px; font-size:12px; background:var(--card2); border:1px solid var(--border);
+    cursor:pointer; position:relative; color:var(--text);
+  }
+  .day.blank{ background:transparent; border:none; cursor:default; }
+  .day.solo{ background:var(--accent); border-color:var(--accent); color:white; font-weight:700;}
+  .day.compartido{ background:var(--accent2); border-color:var(--accent2); color:#06301a; font-weight:700;}
+  .legend{display:flex; gap:14px; margin-top:10px; font-size:11px; color:var(--muted); flex-wrap:wrap;}
+  .legend span{display:inline-flex; align-items:center; gap:5px;}
+  .dot{width:10px; height:10px; border-radius:3px; display:inline-block;}
+  .dot.none{background:var(--card2); border:1px solid var(--border);}
+  .dot.solo{background:var(--accent);}
+  .dot.compartido{background:var(--accent2);}
+  table.res{width:100%; border-collapse:collapse; font-size:12px;}
+  table.res th, table.res td{padding:6px 4px; border-bottom:1px solid var(--border); text-align:left;}
+  table.res th{color:var(--muted); font-weight:600; font-size:11px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💰 Control de Gastos</h1>
+  <p>Gasolina, servicios y gastos compartidos — guardado en tu teléfono</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-view="gas">⛽ Gasolina</div>
+  <div class="tab" data-view="serv">🏠 Servicios</div>
+  <div class="tab" data-view="resumen">📊 Resumen</div>
+</div>
+
+<main>
+
+  <!-- GASOLINA -->
+  <div class="view active" id="view-gas">
+
+    <div class="card">
+      <h3>Cargas de gasolina</h3>
+      <label>Fecha</label>
+      <input type="date" id="gasFecha">
+      <label>Monto de la carga</label>
+      <input type="number" id="gasMonto" placeholder="0.00" step="0.01">
+      <button class="btn-primary" onclick="addGas()">Agregar carga</button>
+      <div id="gasLista" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <h3>Calendario de uso</h3>
+      <label>Mes</label>
+      <input type="month" id="gasCalMes">
+      <div class="weekdays">
+        <div>D</div><div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div>
+      </div>
+      <div class="calendar" id="calendarGrid"></div>
+      <div class="legend">
+        <span><span class="dot none"></span> Sin uso</span>
+        <span><span class="dot solo"></span> Solo yo</span>
+        <span><span class="dot compartido"></span> Compartido</span>
+      </div>
+      <p style="font-size:11px; color:var(--muted); margin-top:8px;">
+        Toca un día para marcarlo: sin uso → solo yo → compartido (te pedirá cuántas personas, incluyéndote).
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Resumen del mes</h3>
+      <div class="stat-grid">
+        <div class="stat"><div class="v" id="rDiasSolo">0</div><div class="l">Días solo</div></div>
+        <div class="stat"><div class="v" id="rDiasComp">0</div><div class="l">Días compartidos</div></div>
+        <div class="stat"><div class="v" id="rTotalMes">$0</div><div class="l">Gastado en el mes</div></div>
+        <div class="stat"><div class="v" id="rCostoDia">$0</div><div class="l">Costo por día</div></div>
+      </div>
+      <div class="stat-grid" style="margin-top:8px;">
+        <div class="stat" style="background:rgba(79,140,255,.15);"><div class="v" id="rTuPago">$0</div><div class="l">Tú debes pagar</div></div>
+        <div class="stat" style="background:rgba(52,199,123,.15);"><div class="v" id="rOtrosPago">$0</div><div class="l">Otras personas deben pagar</div></div>
+      </div>
+
+      <table class="res" style="margin-top:14px;">
+        <thead><tr><th>Día</th><th>Tipo</th><th>Personas</th><th>Tu parte</th><th>Otros</th></tr></thead>
+        <tbody id="tablaDias"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div class="view" id="view-serv">
+    <div class="card">
+      <h3>Agregar servicio nuevo</h3>
+      <label>Nombre del servicio</label>
+      <input type="text" id="nuevoServicioNombre" placeholder="Ej. Gas natural, Agua, Gimnasio...">
+      <button class="btn-secondary" onclick="addServiceCategory()">+ Agregar servicio</button>
+    </div>
+    <div id="serviciosContainer"></div>
+
+    <div class="card">
+      <h3>Total de servicios del mes</h3>
+      <label>Mes</label>
+      <input type="month" id="servMes">
+      <div class="stat-grid" style="margin-top:10px;">
+        <div class="stat"><div class="v" id="servTotalMes">$0</div><div class="l">Total gastado</div></div>
+        <div class="stat"><div class="v" id="servTuParte">$0</div><div class="l">Tu parte</div></div>
+      </div>
+      <div class="stat-grid" style="margin-top:8px;">
+        <div class="stat" style="background:rgba(52,199,123,.15); grid-column:1 / -1;"><div class="v" id="servOtrosParte">$0</div><div class="l">Otras personas deben pagar</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMEN GENERAL -->
+  <div class="view" id="view-resumen">
+    <div class="card">
+      <h3>Filtrar por mes</h3>
+      <input type="month" id="resumenMes">
+    </div>
+    <div class="card">
+      <h3>Totales del mes seleccionado</h3>
+      <div id="resumenLista"></div>
+      <div class="entry" style="border-top:1px solid var(--border); margin-top:6px; padding-top:10px;">
+        <strong>Total general</strong>
+        <strong id="resumenTotal" class="month-total">$0</strong>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Reparto del mes</h3>
+      <div class="stat-grid">
+        <div class="stat" style="background:rgba(79,140,255,.15);"><div class="v" id="resumenTuTotal">$0</div><div class="l">Tú debes pagar</div></div>
+        <div class="stat" style="background:rgba(52,199,123,.15);"><div class="v" id="resumenOtrosTotal">$0</div><div class="l">Otras personas deben pagar</div></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+let data = { gas: [], gasDays: {}, services: {} };
+const DEFAULT_CATEGORIES = ["Luz", "Internet", "Spotify", "Netflix"];
+const STORAGE_KEY = "gastos-app-data";
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1700);
+}
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function pad2(n){ return n.toString().padStart(2,'0'); }
+
+// Usa el almacenamiento de Claude si está disponible (window.storage);
+// si no (archivo abierto directamente en el navegador), usa localStorage.
+const usaClaudeStorage = (typeof window.storage !== 'undefined' && window.storage !== null);
+
+async function loadData(){
+  try{
+    if(usaClaudeStorage){
+      const res = await window.storage.get(STORAGE_KEY, false);
+      if(res && res.value){ data = JSON.parse(res.value); }
+    } else {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){ data = JSON.parse(raw); }
+    }
+  }catch(e){ /* primera vez, sin datos guardados */ }
+  if(!data.gas) data.gas = [];
+  if(!data.gasDays) data.gasDays = {};
+  if(!data.services) data.services = {};
+  DEFAULT_CATEGORIES.forEach(c => { if(!data.services[c]) data.services[c] = []; });
+  renderAll();
+}
+
+async function saveData(){
+  try{
+    if(usaClaudeStorage){
+      const res = await window.storage.set(STORAGE_KEY, JSON.stringify(data), false);
+      if(!res){ toast("⚠️ No se pudo guardar"); }
+    } else {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+  }catch(e){ toast("⚠️ Error al guardar"); console.error(e); }
+}
+
+// ---------- TABS ----------
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('view-'+tab.dataset.view).classList.add('active');
+  });
+});
+
+// ---------- CARGAS DE GASOLINA ----------
+function addGas(){
+  const fecha = document.getElementById('gasFecha').value;
+  const monto = parseFloat(document.getElementById('gasMonto').value);
+  if(!fecha || isNaN(monto) || monto <= 0){ toast("Completa fecha y monto válido"); return; }
+  data.gas.push({ id: uid(), fecha, monto });
+  data.gas.sort((a,b)=> b.fecha.localeCompare(a.fecha));
+  saveData();
+  renderGasList();
+  renderGasResumen();
+  document.getElementById('gasMonto').value = '';
+  toast("✅ Carga agregada");
+}
+function deleteGas(id){
+  data.gas = data.gas.filter(g=>g.id!==id);
+  saveData();
+  renderGasList();
+  renderGasResumen();
+}
+function renderGasList(){
+  const lista = document.getElementById('gasLista');
+  if(data.gas.length===0){ lista.innerHTML = '<div class="empty">Sin cargas registradas</div>'; return; }
+  lista.innerHTML = data.gas.map(g => `
+    <div class="entry">
+      <div>$${g.monto.toFixed(2)}<div class="meta">${g.fecha}</div></div>
+      <button class="del" onclick="deleteGas('${g.id}')">Eliminar</button>
+    </div>
+  `).join('');
+}
+
+// ---------- CALENDARIO DE USO ----------
+document.getElementById('gasCalMes').addEventListener('change', ()=>{ renderCalendar(); renderGasResumen(); });
+
+function currentGasMonthKey(){
+  return document.getElementById('gasCalMes').value; // "YYYY-MM"
+}
+
+function renderCalendar(){
+  const monthKey = currentGasMonthKey();
+  const grid = document.getElementById('calendarGrid');
+  if(!monthKey){ grid.innerHTML=''; return; }
+  const [year, month] = monthKey.split('-').map(Number);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const firstWeekday = new Date(year, month-1, 1).getDay(); // 0=domingo
+  if(!data.gasDays[monthKey]) data.gasDays[monthKey] = {};
+  const monthData = data.gasDays[monthKey];
+
+  let html = '';
+  for(let i=0;i<firstWeekday;i++){ html += '<div class="day blank"></div>'; }
+  for(let d=1; d<=daysInMonth; d++){
+    const key = pad2(d);
+    const info = monthData[key];
+    const cls = info ? info.estado : '';
+    html += `<div class="day ${cls}" onclick="cycleDay('${monthKey}','${key}')">${d}</div>`;
+  }
+  grid.innerHTML = html;
+}
+
+function cycleDay(monthKey, dayKey){
+  if(!data.gasDays[monthKey]) data.gasDays[monthKey] = {};
+  const monthData = data.gasDays[monthKey];
+  const current = monthData[dayKey];
+
+  if(!current){
+    monthData[dayKey] = { estado: 'solo' };
+  } else if(current.estado === 'solo'){
+    let personas = parseInt(prompt('¿Entre cuántas personas se compartió ese día (incluyéndote)?', '2'));
+    if(isNaN(personas) || personas < 2) personas = 2;
+    monthData[dayKey] = { estado: 'compartido', personas };
+  } else {
+    delete monthData[dayKey];
+  }
+  saveData();
+  renderCalendar();
+  renderGasResumen();
+}
+
+function gasSplitForMonth(monthKey){
+  const monthData = (data.gasDays[monthKey]) || {};
+  const dayKeys = Object.keys(monthData).sort();
+  const diasSolo = dayKeys.filter(k=>monthData[k].estado==='solo').length;
+  const diasCompartido = dayKeys.filter(k=>monthData[k].estado==='compartido');
+  const totalDiasUso = diasSolo + diasCompartido.length;
+  const totalMes = monthKey ? data.gas.filter(g=>g.fecha.startsWith(monthKey)).reduce((s,g)=>s+g.monto,0) : 0;
+  const costoPorDia = totalDiasUso > 0 ? totalMes / totalDiasUso : 0;
+
+  let tuPago = diasSolo * costoPorDia;
+  let otrosPago = 0;
+  diasCompartido.forEach(k=>{
+    const personas = monthData[k].personas || 2;
+    const tuParte = costoPorDia / personas;
+    tuPago += tuParte;
+    otrosPago += (costoPorDia - tuParte);
+  });
+  return { monthData, dayKeys, diasSolo, diasCompartido, totalMes, costoPorDia, tuPago, otrosPago };
+}
+
+function renderGasResumen(){
+  const monthKey = currentGasMonthKey();
+  const s = gasSplitForMonth(monthKey);
+  const { monthData, dayKeys, diasSolo, diasCompartido, totalMes, costoPorDia, tuPago, otrosPago } = s;
+
+  document.getElementById('rDiasSolo').textContent = diasSolo;
+  document.getElementById('rDiasComp').textContent = diasCompartido.length;
+  document.getElementById('rTotalMes').textContent = '$' + totalMes.toFixed(2);
+  document.getElementById('rCostoDia').textContent = '$' + costoPorDia.toFixed(2);
+  document.getElementById('rTuPago').textContent = '$' + tuPago.toFixed(2);
+  document.getElementById('rOtrosPago').textContent = '$' + otrosPago.toFixed(2);
+
+  const tbody = document.getElementById('tablaDias');
+  if(dayKeys.length===0){
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--muted); padding:14px 0;">Sin días marcados este mes</td></tr>';
+    return;
+  }
+  tbody.innerHTML = dayKeys.map(k=>{
+    const info = monthData[k];
+    if(info.estado==='solo'){
+      return `<tr><td>${k}</td><td>Solo</td><td>—</td><td>$${costoPorDia.toFixed(2)}</td><td>—</td></tr>`;
+    } else {
+      const personas = info.personas || 2;
+      const tuParte = costoPorDia / personas;
+      const otros = costoPorDia - tuParte;
+      return `<tr><td>${k}</td><td>Compartido</td><td>${personas}</td><td>$${tuParte.toFixed(2)}</td><td>$${otros.toFixed(2)}</td></tr>`;
+    }
+  }).join('');
+}
+
+// ---------- SERVICIOS ----------
+function addServiceCategory(){
+  const nombre = document.getElementById('nuevoServicioNombre').value.trim();
+  if(!nombre){ toast("Escribe un nombre"); return; }
+  if(data.services[nombre]){ toast("Ese servicio ya existe"); return; }
+  data.services[nombre] = [];
+  document.getElementById('nuevoServicioNombre').value = '';
+  saveData();
+  renderServices();
+  toast("✅ Servicio agregado");
+}
+function toggleServiceForm(cat){ document.getElementById('form-'+cssId(cat)).classList.toggle('open'); }
+function addServiceEntry(cat){
+  const fecha = document.getElementById('date-'+cssId(cat)).value;
+  const monto = parseFloat(document.getElementById('amount-'+cssId(cat)).value);
+  const compartido = document.getElementById('shared-'+cssId(cat)).checked;
+  const personas = compartido ? Math.max(2, parseInt(document.getElementById('people-'+cssId(cat)).value || 2)) : 1;
+  if(!fecha || isNaN(monto) || monto <= 0){ toast("Completa fecha y monto válido"); return; }
+  data.services[cat].push({ id: uid(), fecha, monto, compartido, personas });
+  data.services[cat].sort((a,b)=> b.fecha.localeCompare(a.fecha));
+  saveData();
+  renderServices();
+  document.getElementById('amount-'+cssId(cat)).value = '';
+  document.getElementById('shared-'+cssId(cat)).checked = false;
+  document.getElementById('people-wrap-'+cssId(cat)).style.display = 'none';
+  toast("✅ Pago agregado a " + cat);
+}
+function deleteServiceEntry(cat, id){
+  data.services[cat] = data.services[cat].filter(e=>e.id!==id);
+  saveData();
+  renderServices();
+}
+function deleteServiceCategory(cat){
+  if(!confirm('¿Eliminar el servicio "'+cat+'" y todo su historial?')) return;
+  delete data.services[cat];
+  saveData();
+  renderServices();
+}
+function cssId(str){ return str.replace(/[^a-z0-9]/gi,'_'); }
+function serviceEntryShare(e){
+  const tuParte = e.compartido ? e.monto / e.personas : e.monto;
+  const otrosParte = e.compartido ? e.monto - tuParte : 0;
+  return { tuParte, otrosParte };
+}
+
+function renderServices(){
+  const container = document.getElementById('serviciosContainer');
+  const cats = Object.keys(data.services);
+  container.innerHTML = cats.map(cat=>{
+    const entries = data.services[cat];
+    const total = entries.reduce((s,e)=>s+e.monto,0);
+    const tuTotal = entries.reduce((s,e)=>s+serviceEntryShare(e).tuParte,0);
+    const otrosTotal = entries.reduce((s,e)=>s+serviceEntryShare(e).otrosParte,0);
+    const isDefault = DEFAULT_CATEGORIES.includes(cat);
+    return `
+    <div class="card service-block">
+      <div class="head"><h4>${cat}</h4><span class="month-total">$${total.toFixed(2)} total</span></div>
+      ${otrosTotal > 0 ? `<div class="meta" style="margin-bottom:8px;">Tú: $${tuTotal.toFixed(2)} · Otros: $${otrosTotal.toFixed(2)}</div>` : ''}
+      ${entries.length ? entries.map(e=>{
+        const {tuParte, otrosParte} = serviceEntryShare(e);
+        return `
+        <div class="entry">
+          <div>$${e.monto.toFixed(2)} ${e.compartido ? '👥' : ''}
+            <div class="meta">${e.fecha}${e.compartido ? ' · entre '+e.personas+' (tu parte: $'+tuParte.toFixed(2)+', otros: $'+otrosParte.toFixed(2)+')' : ''}</div>
+          </div>
+          <button class="del" onclick="deleteServiceEntry('${cat}','${e.id}')">Eliminar</button>
+        </div>`;
+      }).join('') : '<div class="empty">Sin pagos registrados</div>'}
+      <div class="add-toggle" onclick="toggleServiceForm('${cat}')">+ Agregar pago</div>
+      <div class="hidden-form" id="form-${cssId(cat)}">
+        <label>Fecha</label>
+        <input type="date" id="date-${cssId(cat)}">
+        <label>Monto</label>
+        <input type="number" id="amount-${cssId(cat)}" step="0.01" placeholder="0.00">
+        <div class="row">
+          <input type="checkbox" id="shared-${cssId(cat)}" onchange="document.getElementById('people-wrap-${cssId(cat)}').style.display=this.checked?'block':'none'">
+          <label style="margin:0;">Se comparte con otra(s) persona(s)</label>
+        </div>
+        <div id="people-wrap-${cssId(cat)}" style="display:none;">
+          <label>¿Entre cuántas personas (incluyéndote)?</label>
+          <input type="number" id="people-${cssId(cat)}" min="2" value="2">
+        </div>
+        <button class="btn-primary" onclick="addServiceEntry('${cat}')">Guardar pago</button>
+        ${!isDefault ? `<button class="btn-secondary" style="color:var(--danger);" onclick="deleteServiceCategory('${cat}')">Eliminar este servicio</button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+  renderServMonthSummary();
+}
+
+document.getElementById('servMes').addEventListener('change', renderServMonthSummary);
+function renderServMonthSummary(){
+  const mesInput = document.getElementById('servMes').value;
+  if(!mesInput){
+    document.getElementById('servTotalMes').textContent = '$0';
+    document.getElementById('servTuParte').textContent = '$0';
+    document.getElementById('servOtrosParte').textContent = '$0';
+    return;
+  }
+  let total = 0, tuParte = 0, otrosParte = 0;
+  Object.keys(data.services).forEach(cat=>{
+    data.services[cat].filter(e=>e.fecha.startsWith(mesInput)).forEach(e=>{
+      total += e.monto;
+      const share = serviceEntryShare(e);
+      tuParte += share.tuParte;
+      otrosParte += share.otrosParte;
+    });
+  });
+  document.getElementById('servTotalMes').textContent = '$' + total.toFixed(2);
+  document.getElementById('servTuParte').textContent = '$' + tuParte.toFixed(2);
+  document.getElementById('servOtrosParte').textContent = '$' + otrosParte.toFixed(2);
+}
+
+// ---------- RESUMEN GENERAL ----------
+document.getElementById('resumenMes').addEventListener('change', renderResumen);
+function renderResumen(){
+  const mesInput = document.getElementById('resumenMes').value;
+  const lista = document.getElementById('resumenLista');
+  if(!mesInput){
+    lista.innerHTML = '<div class="empty">Selecciona un mes arriba</div>';
+    document.getElementById('resumenTotal').textContent = '$0';
+    document.getElementById('resumenTuTotal').textContent = '$0';
+    document.getElementById('resumenOtrosTotal').textContent = '$0';
+    return;
+  }
+
+  const gasSplit = gasSplitForMonth(mesInput);
+  let filas = `<div class="entry"><div>⛽ Gasolina</div><div>$${gasSplit.totalMes.toFixed(2)}</div></div>`;
+  let total = gasSplit.totalMes;
+  let tuTotal = gasSplit.tuPago;
+  let otrosTotal = gasSplit.otrosPago;
+
+  Object.keys(data.services).forEach(cat=>{
+    const entriesMes = data.services[cat].filter(e=>e.fecha.startsWith(mesInput));
+    const subtotal = entriesMes.reduce((s,e)=>s+e.monto,0);
+    const tuSubtotal = entriesMes.reduce((s,e)=>s+serviceEntryShare(e).tuParte,0);
+    const otrosSubtotal = entriesMes.reduce((s,e)=>s+serviceEntryShare(e).otrosParte,0);
+    total += subtotal;
+    tuTotal += tuSubtotal;
+    otrosTotal += otrosSubtotal;
+    filas += `<div class="entry"><div>${cat}</div><div>$${subtotal.toFixed(2)}</div></div>`;
+  });
+
+  lista.innerHTML = filas;
+  document.getElementById('resumenTotal').textContent = '$' + total.toFixed(2);
+  document.getElementById('resumenTuTotal').textContent = '$' + tuTotal.toFixed(2);
+  document.getElementById('resumenOtrosTotal').textContent = '$' + otrosTotal.toFixed(2);
+}
+
+function renderAll(){
+  const now = new Date();
+  const ym = now.toISOString().slice(0,7);
+  document.getElementById('gasCalMes').value = ym;
+  document.getElementById('resumenMes').value = ym;
+  document.getElementById('servMes').value = ym;
+  renderGasList();
+  renderCalendar();
+  renderGasResumen();
+  renderServices();
+  renderResumen();
+}
+
+loadData();
+</script>
+
+</body>
+</html>
