@@ -297,8 +297,12 @@ function deleteGas(id){
 }
 function renderGasList(){
   const lista = document.getElementById('gasLista');
-  if(data.gas.length===0){ lista.innerHTML = '<div class="empty">Sin cargas registradas</div>'; return; }
-  lista.innerHTML = data.gas.map(g => `
+  const mesSeleccionado = document.getElementById('gasCalMes').value;
+  const cargas = mesSeleccionado
+    ? data.gas.filter(g => g.fecha.startsWith(mesSeleccionado))
+    : data.gas;
+  if(cargas.length===0){ lista.innerHTML = '<div class="empty">Sin cargas registradas este mes</div>'; return; }
+  lista.innerHTML = cargas.map(g => `
     <div class="entry">
       <div>$${g.monto.toFixed(2)}<div class="meta">${g.fecha}</div></div>
       <button class="del" onclick="deleteGas('${g.id}')">Eliminar</button>
@@ -307,7 +311,7 @@ function renderGasList(){
 }
 
 // ---------- CALENDARIO DE USO ----------
-document.getElementById('gasCalMes').addEventListener('change', ()=>{ renderCalendar(); renderGasResumen(); });
+document.getElementById('gasCalMes').addEventListener('change', ()=>{ renderGasList(); renderCalendar(); renderGasResumen(); });
 
 function currentGasMonthKey(){
   return document.getElementById('gasCalMes').value; // "YYYY-MM"
