@@ -200,15 +200,44 @@
       <input type="month" id="resumenMes">
     </div>
     <div class="card">
-      <h3>Totales del mes seleccionado</h3>
-      <div id="resumenLista"></div>
+      <h3>⛽ Gasolina</h3>
+      <div id="resumenGasLista"></div>
       <div class="entry" style="border-top:1px solid var(--border); margin-top:6px; padding-top:10px;">
-        <strong>Total general</strong>
+        <strong>Subtotal gasolina</strong>
+        <strong id="resumenGasTotal" class="month-total">$0</strong>
+      </div>
+    </div>
+    <div class="card">
+      <h3>⛽ Reparto de gasolina</h3>
+      <div class="stat-grid">
+        <div class="stat" style="background:rgba(79,140,255,.15);"><div class="v" id="repartoGasTu">$0</div><div class="l">Tú debes pagar</div></div>
+        <div class="stat" style="background:rgba(52,199,123,.15);"><div class="v" id="repartoGasOtros">$0</div><div class="l">Otras personas deben pagar</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🏠 Servicios</h3>
+      <div id="resumenServLista"></div>
+      <div class="entry" style="border-top:1px solid var(--border); margin-top:6px; padding-top:10px;">
+        <strong>Subtotal servicios</strong>
+        <strong id="resumenServTotal" class="month-total">$0</strong>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🏠 Reparto de servicios</h3>
+      <div class="stat-grid">
+        <div class="stat" style="background:rgba(79,140,255,.15);"><div class="v" id="repartoServTu">$0</div><div class="l">Tú debes pagar</div></div>
+        <div class="stat" style="background:rgba(52,199,123,.15);"><div class="v" id="repartoServOtros">$0</div><div class="l">Otras personas deben pagar</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Total general</h3>
+      <div class="entry">
+        <strong>Gasolina + servicios</strong>
         <strong id="resumenTotal" class="month-total">$0</strong>
       </div>
     </div>
     <div class="card">
-      <h3>Reparto del mes</h3>
+      <h3>Reparto general del mes</h3>
       <div class="stat-grid">
         <div class="stat" style="background:rgba(79,140,255,.15);"><div class="v" id="resumenTuTotal">$0</div><div class="l">Tú debes pagar</div></div>
         <div class="stat" style="background:rgba(52,199,123,.15);"><div class="v" id="resumenOtrosTotal">$0</div><div class="l">Otras personas deben pagar</div></div>
@@ -527,36 +556,62 @@ function renderServMonthSummary(){
 document.getElementById('resumenMes').addEventListener('change', renderResumen);
 function renderResumen(){
   const mesInput = document.getElementById('resumenMes').value;
-  const lista = document.getElementById('resumenLista');
+  const gasLista = document.getElementById('resumenGasLista');
+  const servLista = document.getElementById('resumenServLista');
+
   if(!mesInput){
-    lista.innerHTML = '<div class="empty">Selecciona un mes arriba</div>';
+    gasLista.innerHTML = '<div class="empty">Selecciona un mes arriba</div>';
+    servLista.innerHTML = '';
+    document.getElementById('resumenGasTotal').textContent = '$0';
+    document.getElementById('resumenServTotal').textContent = '$0';
     document.getElementById('resumenTotal').textContent = '$0';
+    document.getElementById('repartoGasTu').textContent = '$0';
+    document.getElementById('repartoGasOtros').textContent = '$0';
+    document.getElementById('repartoServTu').textContent = '$0';
+    document.getElementById('repartoServOtros').textContent = '$0';
     document.getElementById('resumenTuTotal').textContent = '$0';
     document.getElementById('resumenOtrosTotal').textContent = '$0';
     return;
   }
 
+  // Gasolina
   const gasSplit = gasSplitForMonth(mesInput);
-  let filas = `<div class="entry"><div>⛽ Gasolina</div><div>$${gasSplit.totalMes.toFixed(2)}</div></div>`;
-  let total = gasSplit.totalMes;
-  let tuTotal = gasSplit.tuPago;
-  let otrosTotal = gasSplit.otrosPago;
+  gasLista.innerHTML = gasSplit.dayKeys.length
+    ? `<div class="entry"><div>Días usados</div><div>${gasSplit.dayKeys.length}</div></div>
+       <div class="entry"><div>Cargas registradas</div><div>$${gasSplit.totalMes.toFixed(2)}</div></div>`
+    : '<div class="empty">Sin datos este mes</div>';
+  document.getElementById('resumenGasTotal').textContent = '$' + gasSplit.totalMes.toFixed(2);
 
+  // Servicios
+  let servTotal = 0, servFilas = '';
   Object.keys(data.services).forEach(cat=>{
     const entriesMes = data.services[cat].filter(e=>e.fecha.startsWith(mesInput));
     const subtotal = entriesMes.reduce((s,e)=>s+e.monto,0);
-    const tuSubtotal = entriesMes.reduce((s,e)=>s+serviceEntryShare(e).tuParte,0);
-    const otrosSubtotal = entriesMes.reduce((s,e)=>s+serviceEntryShare(e).otrosParte,0);
-    total += subtotal;
-    tuTotal += tuSubtotal;
-    otrosTotal += otrosSubtotal;
-    filas += `<div class="entry"><div>${cat}</div><div>$${subtotal.toFixed(2)}</div></div>`;
+    servTotal += subtotal;
+    servFilas += `<div class="entry"><div>${cat}</div><div>$${subtotal.toFixed(2)}</div></div>`;
+  });
+  servLista.innerHTML = servFilas || '<div class="empty">Sin datos este mes</div>';
+  document.getElementById('resumenServTotal').textContent = '$' + servTotal.toFixed(2);
+
+  // Reparto de servicios
+  let servTuTotal = 0, servOtrosTotal = 0;
+  Object.keys(data.services).forEach(cat=>{
+    data.services[cat].filter(e=>e.fecha.startsWith(mesInput)).forEach(e=>{
+      const share = serviceEntryShare(e);
+      servTuTotal += share.tuParte;
+      servOtrosTotal += share.otrosParte;
+    });
   });
 
-  lista.innerHTML = filas;
-  document.getElementById('resumenTotal').textContent = '$' + total.toFixed(2);
-  document.getElementById('resumenTuTotal').textContent = '$' + tuTotal.toFixed(2);
-  document.getElementById('resumenOtrosTotal').textContent = '$' + otrosTotal.toFixed(2);
+  document.getElementById('repartoGasTu').textContent = '$' + gasSplit.tuPago.toFixed(2);
+  document.getElementById('repartoGasOtros').textContent = '$' + gasSplit.otrosPago.toFixed(2);
+  document.getElementById('repartoServTu').textContent = '$' + servTuTotal.toFixed(2);
+  document.getElementById('repartoServOtros').textContent = '$' + servOtrosTotal.toFixed(2);
+
+  // Reparto general
+  document.getElementById('resumenTotal').textContent = '$' + (gasSplit.totalMes + servTotal).toFixed(2);
+  document.getElementById('resumenTuTotal').textContent = '$' + (gasSplit.tuPago + servTuTotal).toFixed(2);
+  document.getElementById('resumenOtrosTotal').textContent = '$' + (gasSplit.otrosPago + servOtrosTotal).toFixed(2);
 }
 
 function renderAll(){
