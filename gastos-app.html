@@ -169,6 +169,11 @@
   <!-- SERVICIOS -->
   <div class="view" id="view-serv">
     <div class="card">
+      <h3>Mes a mostrar</h3>
+      <input type="month" id="servMes">
+    </div>
+
+    <div class="card">
       <h3>Agregar servicio nuevo</h3>
       <label>Nombre del servicio</label>
       <input type="text" id="nuevoServicioNombre" placeholder="Ej. Gas natural, Agua, Gimnasio...">
@@ -178,9 +183,7 @@
 
     <div class="card">
       <h3>Total de servicios del mes</h3>
-      <label>Mes</label>
-      <input type="month" id="servMes">
-      <div class="stat-grid" style="margin-top:10px;">
+      <div class="stat-grid">
         <div class="stat"><div class="v" id="servTotalMes">$0</div><div class="l">Total gastado</div></div>
         <div class="stat"><div class="v" id="servTuParte">$0</div><div class="l">Tu parte</div></div>
       </div>
@@ -448,15 +451,18 @@ function serviceEntryShare(e){
 function renderServices(){
   const container = document.getElementById('serviciosContainer');
   const cats = Object.keys(data.services);
+  const mesSeleccionado = document.getElementById('servMes').value;
   container.innerHTML = cats.map(cat=>{
-    const entries = data.services[cat];
+    const entries = mesSeleccionado
+      ? data.services[cat].filter(e => e.fecha.startsWith(mesSeleccionado))
+      : data.services[cat];
     const total = entries.reduce((s,e)=>s+e.monto,0);
     const tuTotal = entries.reduce((s,e)=>s+serviceEntryShare(e).tuParte,0);
     const otrosTotal = entries.reduce((s,e)=>s+serviceEntryShare(e).otrosParte,0);
     const isDefault = DEFAULT_CATEGORIES.includes(cat);
     return `
     <div class="card service-block">
-      <div class="head"><h4>${cat}</h4><span class="month-total">$${total.toFixed(2)} total</span></div>
+      <div class="head"><h4>${cat}</h4><span class="month-total">$${total.toFixed(2)} ${mesSeleccionado ? 'este mes' : 'total'}</span></div>
       ${otrosTotal > 0 ? `<div class="meta" style="margin-bottom:8px;">Tú: $${tuTotal.toFixed(2)} · Otros: $${otrosTotal.toFixed(2)}</div>` : ''}
       ${entries.length ? entries.map(e=>{
         const {tuParte, otrosParte} = serviceEntryShare(e);
@@ -490,7 +496,7 @@ function renderServices(){
   renderServMonthSummary();
 }
 
-document.getElementById('servMes').addEventListener('change', renderServMonthSummary);
+document.getElementById('servMes').addEventListener('change', ()=>{ renderServices(); });
 function renderServMonthSummary(){
   const mesInput = document.getElementById('servMes').value;
   if(!mesInput){
